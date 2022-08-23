@@ -1,0 +1,29 @@
+.style-link{
+    text-decoration: none;
+    color: black;
+}
+
+table{
+    width: 100%;
+    font-size: 1.2em;
+}
+
+td a{
+    display: block;
+}
+
+th{
+    background-color: lightskyblue;
+}
+tr,td,th{
+    border: 2px solid black;
+    padding: 2px;
+}
+
+tr:hover{
+    background-color: lightskyblue;
+}
+
+.btn{
+    font-size: 1.2em;
+}

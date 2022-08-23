@@ -1,0 +1,132 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+           <form (ngSubmit)="onSubmit()" [formGroup]="userDetailsForm" class="user-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <span class="asterisk"> *</span>
+                <input 
+                type="text" 
+                id="name" 
+                class="form-control"
+                formControlName="name">
+                <span class="help-block" *ngIf="userDetailsForm.get('name').invalid && userDetailsForm.get('name').touched">Name should not start with empty space,should contain characters only and must be of atleast length 2</span>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date Of Birth</label>
+                <span class="asterisk"> *</span>
+                <input 
+                type="date" 
+                id="dob" 
+                class="form-control"
+                formControlName="dateOfBirth">
+                <span class="help-block" *ngIf="userDetailsForm.get('dateOfBirth').invalid && userDetailsForm.get('dateOfBirth').touched">This field is required</span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <span class="asterisk"> *</span>
+                <input 
+                type="email" 
+                id="email" 
+                class="form-control"
+                formControlName="email">
+                <span class="help-block" *ngIf="userDetailsForm.get('email').invalid && userDetailsForm.get('email').touched">Please enter valid email</span>
+            </div>
+            <div class="form-group">
+                <label for="pnumber">Phone Number</label>
+                <span class="asterisk"> *</span>
+                <input 
+                type="tel" 
+                id="pnumber" 
+                class="form-control"
+                formControlName="phoneNumber">
+                <span class="help-block" *ngIf="userDetailsForm.get('phoneNumber').invalid && userDetailsForm.get('phoneNumber').touched">Please enter Indian phone number of length 10(starts with 7,8 or 9)</span>
+            </div>
+            <div formGroupName="education">
+                <label for="education">Education</label>
+                <div class="form-group">
+                    <label for="institute">Institute Name</label>
+                    <span class="asterisk"> *</span>
+                    <input 
+                    type="text" 
+                    id="institute" 
+                    class="form-control"
+                    formControlName="instituteName">
+                    <span class="help-block" *ngIf="userDetailsForm.get('education.instituteName').invalid && userDetailsForm.get('education.instituteName').touched">Please enter valid institute name without empty space at the beginning</span>
+                </div>
+                <div class="form-group">
+                    <label for="degree">Degree</label>
+                    <span class="asterisk"> *</span>
+                    <input 
+                    type="text" 
+                    id="degree" 
+                    class="form-control"
+                    formControlName="degree">
+                    <span class="help-block" *ngIf="userDetailsForm.get('education.degree').invalid && userDetailsForm.get('education.degree').touched">Please enter valid degree name without empty space at the beginning</span>
+                </div>
+                <div class="form-group">
+                    <label for="percentage">Percentage</label>
+                    <span class="asterisk"> *</span>
+                    <input 
+                    type="text" 
+                    id="percentage" 
+                    class="form-control"
+                    formControlName="percentage">
+                    <span class="help-block" *ngIf="userDetailsForm.get('education.percentage').invalid && userDetailsForm.get('education.percentage').touched">Please enter valid percentage upto two decimal point</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="hobby">Hobbies</label>
+                <div *ngFor="let formControl of hobbiesArray();let i=index;">
+                    <label>
+                        <input
+                        class="form-check-input"
+                        type="checkbox"
+                        [formControl]="formControl">
+                        {{ hobbies[i].value }}  
+                    </label>        
+                </div>    
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <span class="asterisk"> *</span>
+                <div *ngFor="let gender of genders">
+                    <label>
+                        <input
+                        class="form-check-input"
+                        type="radio"
+                        formControlName="gender"
+                        [value]="gender">
+                        {{ gender }}  
+                    </label>      
+                </div>    
+            </div>
+            <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea 
+                    rows="5"
+                    id="name" 
+                    class="form-control"
+                    formControlName="address">
+                    </textarea>
+            </div>
+            <div class="form-group">
+                    <label for="summary">Summary</label>
+                    <textarea 
+                    rows="5"
+                    id="summary" 
+                    class="form-control"
+                    formControlName="summary">
+                    </textarea>
+            </div>
+            <button class="btn btn-success" type="submit" [disabled]="userDetailsForm.invalid">Submit</button>&nbsp;
+            <button class="btn btn-primary" type="button" (click)="onReset()">Reset</button>
+           </form>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+    </div>
+</div>
+
+
+

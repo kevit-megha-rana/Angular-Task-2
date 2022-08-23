@@ -1,0 +1,20 @@
+input.ng-invalid.ng-touched{
+    border: 1px solid red;
+}
+
+.user-form{
+    border: 1px solid black;
+    padding: 1em;
+}
+
+label{
+    font-size: medium;
+}
+
+.asterisk{
+    color: red;
+}
+
+.btn{
+    font-size: 1.2em;
+}

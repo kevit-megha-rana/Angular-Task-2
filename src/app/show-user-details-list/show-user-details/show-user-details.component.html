@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-xs-12">
+      <h3>User Details</h3>
+      <p><span>Name:</span> {{user.name}}</p>
+      <p><span>Date Of Birth:</span> {{user.dateOfBirth | date:'mediumDate'}}</p>
+      <p><span>Email:</span> {{user.email}}</p>
+      <p><span>Phone Number:</span> {{user.phoneNumber}}</p>
+      <p><span>Institute Name:</span> {{user.education.instituteName}}</p>
+      <p><span>Degree Name:</span> {{user.education.degree}}</p>
+      <p><span>Percentage:</span> {{user.education.percentage}}%</p>
+      <p *ngIf="user.hobbyValues.length !== 0"><span>Hobbies:</span> {{user.hobbyValues}}</p>
+      <p><span>Gender:</span> {{user.gender}}</p>
+      <p *ngIf="user.address"><span>Address:</span> {{user.address}}</p>
+      <p *ngIf="user.summary"><span>Summary:</span> {{user.summary}}</p>
+      <button class="btn btn-primary" type="button" (click)="onEdit()">Edit</button>
+    </div>
+</div>
+

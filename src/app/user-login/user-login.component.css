@@ -1,0 +1,31 @@
+input.ng-invalid.ng-touched{
+    border: solid 1px red;
+}
+
+input{
+    border-radius: 1em;
+}
+
+.login{
+    margin-top: 50%;
+    border: 0.5em solid black;
+    padding: 30px;
+    border-radius: 1em;
+}
+
+.form-title{
+    text-align: center;
+    font-weight: bolder;
+    font-size:2em;
+    padding-bottom: 1em;
+}
+
+.btn{
+    border-radius: 1em;
+    margin-top: 2em;
+    font-size: 1.2em;
+}
+
+label{
+    font-size: medium;
+}
