@@ -130,14 +130,10 @@ export class UserDetailsFormComponent implements OnInit {
     return (<FormArray>this.userDetailsForm.get('hobbies')).controls;
   }
 
-  get getHobbies() {
-    return (<FormArray>this.userDetailsForm.get('hobbies'));
-  }
-
   getSelectedHobbyValue(){
     this.selectedHobby = [];
     this.selectedHobbyValues = [];
-    this.getHobbies.controls.forEach((control,i) =>{
+    this.hobbiesArray().forEach((control,i) =>{
       if(control.value){
         this.hobbies[i].selected = !this.hobbies[i].selected;
         this.selectedHobbyValues.push(this.hobbies[i].value);   
