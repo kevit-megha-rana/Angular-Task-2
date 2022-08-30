@@ -25,9 +25,9 @@
                 class="form-control"
                 ngModel
                 name="password"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*_=+-])(?=.*[A-Z]).{8,}" 
                 required
-                #pass="ngModel">
+                #pass="ngModel"
+                [pattern]= "regex.Password">
                 <span class="help-block" *ngIf="pass.invalid && pass.touched">Must contain at least one special character one number and one uppercase and lowercase letter, and at least 8 or more characters</span>
               </div>
             <button class="btn btn-primary btn-block" [disabled]="f.invalid" type="submit">Login</button>

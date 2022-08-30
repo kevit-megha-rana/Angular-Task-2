@@ -5,16 +5,10 @@ input.ng-invalid.ng-touched{
 .user-form{
     border: 1px solid black;
     padding: 1em;
-}
-
-label{
-    font-size: medium;
+    margin: 2em;
 }
 
 .asterisk{
     color: red;
 }
 
-.btn{
-    font-size: 1.2em;
-}

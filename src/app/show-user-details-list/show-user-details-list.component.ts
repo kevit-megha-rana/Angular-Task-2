@@ -19,6 +19,6 @@ export class ShowUserDetailsListComponent implements OnInit {
   }
 
   onAddUser(){
-    this.router.navigate(['/new-user']);
+    this.router.navigate(['/user']);
   }
 }

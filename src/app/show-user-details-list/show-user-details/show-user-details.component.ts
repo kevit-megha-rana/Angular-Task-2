@@ -27,7 +27,7 @@ export class ShowUserDetailsComponent implements OnInit {
   }
 
   onEdit(){
-      this.router.navigate(['/user-details',this.index,'edit']);
+      this.router.navigate(['/user',this.index]);
   }
 
 }

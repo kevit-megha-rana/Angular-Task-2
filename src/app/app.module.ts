@@ -10,6 +10,7 @@ import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { UserService } from './user.service';
 import { ShowUserDetailsListComponent } from './show-user-details-list/show-user-details-list.component';
 import { UserSelectComponent } from './show-user-details-list/user-select/user-select.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { UserSelectComponent } from './show-user-details-list/user-select/user-s
     ShowUserDetailsComponent,
     UserDetailsFormComponent,
     ShowUserDetailsListComponent,
-    UserSelectComponent
+    UserSelectComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

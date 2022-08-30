@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+label{
+    font-size: medium;
+}
+
+.btn{
+    font-size: 1.2em;
+}
+
+.help-block{
+    color: red;
+}

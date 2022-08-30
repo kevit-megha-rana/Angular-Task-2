@@ -14,8 +14,8 @@
                    </thead>
                    <tbody>
                     <tr *ngFor="let user of userDetails;let i=index;">
-                        <td> <a [routerLink]="i" class="style-link" >{{i+1}}</a> </td>
-                        <td> <a [routerLink]="i" class="style-link" >{{user.name}}</a></td>    
+                        <td routerLinkActive="active-link"> <a [routerLink]="i" class="style-link">{{i+1}}</a> </td>
+                        <td routerLinkActive="active-link"> <a [routerLink]="i" class="style-link">{{user.name}}</a></td>    
                     </tr>   
                    </tbody>
                 </table> 

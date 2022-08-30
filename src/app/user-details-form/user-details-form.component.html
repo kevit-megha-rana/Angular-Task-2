@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2"></div>
-        <div class="col-lg-8 col-md-8 col-sm-8">
-           <form (ngSubmit)="onSubmit()" [formGroup]="userDetailsForm" class="user-form">
+        <div class="col-lg-8 col-md-8 col-sm-8" class="col-user-form">
+           <form (ngSubmit)="onSubmit()" [formGroup]="userDetailsForm" class="user-form" *ngIf="userDetailsForm">
             <div class="form-group">
                 <label for="name">Name</label>
                 <span class="asterisk"> *</span>

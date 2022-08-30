@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EnumRegex } from 'src/enum-regex';
 
 @Component({
   selector: 'app-user-login',
@@ -8,12 +9,14 @@ import { Router } from '@angular/router';
 })
 export class UserLoginComponent implements OnInit {
 
+  regex = EnumRegex;
+
   constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
 
   onLogin(){
-    this.router.navigate(['/new-user']); 
+    this.router.navigate(['/user']); 
   }
 }
