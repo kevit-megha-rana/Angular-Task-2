@@ -134,8 +134,6 @@ export class UserDetailsFormComponent implements OnInit {
     this.userDetails.push({...this.userDetailsForm.value,hobbyValues});
     }
     this.router.navigate(['/user-details']);
-    console.log(this.userDetailsForm.value);
-    
   }
 
   onReset(){
