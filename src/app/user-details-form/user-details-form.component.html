@@ -120,6 +120,13 @@
                     formControlName="summary">
                     </textarea>
             </div>
+            <div class="form-group">
+                <input 
+                type="hidden" 
+                id="hidden" 
+                class="form-control"
+                formControlName="uid">
+            </div>
             <button class="btn btn-success" type="submit" [disabled]="userDetailsForm.invalid">Submit</button>&nbsp;
             <button class="btn btn-primary" type="button" (click)="onReset()">Reset</button>
            </form>

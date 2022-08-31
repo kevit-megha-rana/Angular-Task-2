@@ -10,7 +10,7 @@ import { IUser, UserService } from '../../user.service';
 export class ShowUserDetailsComponent implements OnInit {
 
   user: IUser;
-  index: number;
+  editID: string;
 
   constructor(private userService:UserService,
               private router:Router,
@@ -20,14 +20,14 @@ export class ShowUserDetailsComponent implements OnInit {
     this.route.params
       .subscribe(
         (params:Params) =>{
-           this.index = +params['id'];
-           this.user = this.userService.getUserById(this.index);
+           this.editID = params['id'];
+           this.user = this.userService.getUserById(this.editID);
         }
       );
   }
 
   onEdit(){
-      this.router.navigate(['/user',this.index]);
+      this.router.navigate(['/user',this.editID]);
   }
 
 }

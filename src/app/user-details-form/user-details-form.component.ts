@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { UUID } from 'angular2-uuid';
 import { EnumRegex } from 'src/enum-regex';
 import { IUser, UserService } from '../user.service';
 
@@ -42,10 +43,11 @@ export class UserDetailsFormComponent implements OnInit {
 
   genders: string[] = ['male','female'];
   userDetailsForm : FormGroup;
-  userDetails : IUser[] =[];
+  userDetails : IUser[] = [];
   selectedHobbyValues = [];
   selectedHobby = [];
-  index: number;
+  uid: string; // to generate unique userId when new user is created
+  editID: string;
   
 
   constructor(private router:Router,
@@ -56,19 +58,21 @@ export class UserDetailsFormComponent implements OnInit {
 
     this.route.params.subscribe(
       (params:Params) => {
-          this.index = params['id'];
+          this.editID = params['id'];
           this.initForm();
       }
     )
-    this.userDetails = this.userService.userDetails;  
+    this.userDetails = this.userService.userDetails;    
   }
 
   private initForm(){
     let user:IUser;
      
-    if(this.index){
-      user = this.userService.getUserById(this.index);
+    if(this.editID){
+      user = this.userService.getUserById(this.editID);
     }  
+
+    this.uid = UUID.UUID();
     
     this.userDetailsForm = new FormGroup({
       'name': new FormControl(user?.name || "",[Validators.required,Validators.pattern(EnumRegex.Name)]),
@@ -83,14 +87,14 @@ export class UserDetailsFormComponent implements OnInit {
       'hobbies': this.addHobbyControls(),
       'gender': new FormControl(user?.gender || "",Validators.required),
       'address': new FormControl(user?.address || ""),
-      'summary': new FormControl(user?.summary || "")
-
+      'summary': new FormControl(user?.summary || ""),
+      'uid': new FormControl(user?.uid || this.uid)
     });
   }
 
   addHobbyControls(){
-      if(this.index){
-        const user = this.userService.getUserById(this.index); 
+      if(this.editID){
+        const user = this.userService.getUserById(this.editID); 
         const arr = user.hobby.map(hobbie =>{
           return new FormControl(hobbie['selected']);
         });
@@ -124,14 +128,14 @@ export class UserDetailsFormComponent implements OnInit {
     this.getSelectedHobbyValue();
     const hobbyValues = this.selectedHobbyValues;
     const hobby = this.selectedHobby;
-    if(this.index){
-      this.userService.updateUser(this.index,{...this.userDetailsForm.value,hobbyValues,hobby});
+    if(this.editID){
+      this.userService.updateUser(this.editID,{...this.userDetailsForm.value,hobbyValues,hobby});
     }
     else{
     this.userDetails.push({...this.userDetailsForm.value,hobbyValues,hobby});
     }
-    
     this.router.navigate(['/user-details']);
+    console.log(this.userDetailsForm.value);
     
   }
 

@@ -12,12 +12,13 @@ export interface IUser {
     address?: string,
     summary?: string,
     hobbyValues?: string[],
-    hobby?: any[]
+    hobby?: any[],
+    uid: string
 };
 
 export class UserService{
 
-userDetails : IUser[] = [
+private _userDetails : IUser[] = [
     {
         name: 'Hetanshi Rana',
         dateOfBirth: '2002-10-28',
@@ -36,15 +37,26 @@ userDetails : IUser[] = [
             {name: 'Sleeping', value: 'sleeping', selected: false}],
         hobbyValues: ['mobile-games'],
         gender: 'female',
+        uid: '664e84ef-8eb4-b77e-da38-664e00257a8f'
     }
 ];
 
-getUserById(index:number){
-    return this.userDetails[index];
+public get userDetails(){
+    return this._userDetails;
 }
 
-updateUser(index:number,user:IUser){
-    this.userDetails[index] = user;
+// not used right now
+public set userDetails(theUserDetails: IUser[]){
+    this._userDetails = theUserDetails;
+}
+
+getUserById(userID:string){
+    return this.userDetails.find(user => user.uid === userID);
+}
+
+updateUser(editID:string,user:IUser){
+    let userIndex = this.userDetails.findIndex((userObj => userObj.uid === editID));
+    this.userDetails[userIndex] = user;
 }
 
 }
