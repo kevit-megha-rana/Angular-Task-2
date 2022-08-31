@@ -95,8 +95,8 @@ export class UserDetailsFormComponent implements OnInit {
   addHobbyControls(){
       if(this.editID){
         const user = this.userService.getUserById(this.editID); 
-        const arr = user.hobby.map(hobbie =>{
-          return new FormControl(hobbie['selected']);
+        const arr = user.hobbies.map(hobbie =>{
+          return new FormControl(hobbie);
         });
         return new FormArray(arr);
       }
@@ -127,12 +127,11 @@ export class UserDetailsFormComponent implements OnInit {
   onSubmit(){
     this.getSelectedHobbyValue();
     const hobbyValues = this.selectedHobbyValues;
-    const hobby = this.selectedHobby;
     if(this.editID){
-      this.userService.updateUser(this.editID,{...this.userDetailsForm.value,hobbyValues,hobby});
+      this.userService.updateUser(this.editID,{...this.userDetailsForm.value,hobbyValues});
     }
     else{
-    this.userDetails.push({...this.userDetailsForm.value,hobbyValues,hobby});
+    this.userDetails.push({...this.userDetailsForm.value,hobbyValues});
     }
     this.router.navigate(['/user-details']);
     console.log(this.userDetailsForm.value);
