@@ -28,13 +28,6 @@ private _userDetails : IUser[] = [
             instituteName: 'Marwadi University', 
             degree: 'BBA Honors', 
             percentage: '80'},
-        hobbies: [false, true, false, false, false],
-        hobby: [
-            {name: 'Cricket', value: 'cricket', selected: false},
-            {name: 'Mobile-games', value: 'mobile-games', selected: true},
-            {name: 'Movie', value: 'movie', selected: false},
-            {name: 'Travelling', value: 'travelling', selected: false},
-            {name: 'Sleeping', value: 'sleeping', selected: false}],
         hobbyValues: ['mobile-games'],
         gender: 'female',
         uid: '664e84ef-8eb4-b77e-da38-664e00257a8f'
