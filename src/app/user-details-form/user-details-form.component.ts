@@ -45,7 +45,6 @@ export class UserDetailsFormComponent implements OnInit {
   userDetailsForm : FormGroup;
   userDetails : IUser[] = [];
   selectedHobbyValues = [];
-  selectedHobby = [];
   uid: string; // to generate unique userId when new user is created
   editID: string;
   
@@ -95,9 +94,12 @@ export class UserDetailsFormComponent implements OnInit {
   addHobbyControls(){
       if(this.editID){
         const user = this.userService.getUserById(this.editID); 
-        const arr = user.hobbies.map(hobbie =>{
-          return new FormControl(hobbie);
-        });
+        const arr = this.hobbies.map((hobbie) => {
+          if(user.hobbyValues.includes(hobbie.value)){
+            return new FormControl(true);
+          }
+            return new FormControl(false);
+        })
         return new FormArray(arr);
       }
       else{
@@ -113,14 +115,12 @@ export class UserDetailsFormComponent implements OnInit {
   }
 
   getSelectedHobbyValue(){
-    this.selectedHobby = [];
     this.selectedHobbyValues = [];
     this.hobbiesArray().forEach((control,i) =>{
       if(control.value){
         this.hobbies[i].selected = !this.hobbies[i].selected;
         this.selectedHobbyValues.push(this.hobbies[i].value);   
       }
-      this.selectedHobby.push(this.hobbies[i]);
     });
   }
 
