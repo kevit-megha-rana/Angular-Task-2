@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser, UserService } from 'src/app/user.service';
+import { IUser, UserService } from '../../shared/user.service';
 
 @Component({
   selector: 'app-user-select',

@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-12" *ngIf="user">
       <h3>User Details</h3>
       <p><span>Name:</span> {{user.name}}</p>
       <p><span>Date Of Birth:</span> {{user.dateOfBirth | date:'mediumDate'}}</p>
@@ -12,7 +12,6 @@
       <p><span>Gender:</span> {{user.gender}}</p>
       <p *ngIf="user.address"><span>Address:</span> {{user.address}}</p>
       <p *ngIf="user.summary"><span>Summary:</span> {{user.summary}}</p>
-      <button class="btn btn-primary" type="button" (click)="onEdit()">Edit</button>
     </div>
 </div>
 

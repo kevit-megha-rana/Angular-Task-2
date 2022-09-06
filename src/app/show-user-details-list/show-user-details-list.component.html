@@ -3,19 +3,28 @@
         <div class="col-lg-2 col-md-2 col-sm-2"></div>
         <div class="col-lg-8 col-md-8 col-sm-8">
             <br>
-            <button class="btn btn-primary" type="button" (click)="onAddUser()">New User</button>
+            <button class="btn btn-primary btn-add" type="button" (click)="onAddUser()">New User</button>
             <h2>User Details List</h2>
                 <table>
                    <thead>
                     <tr>
                         <th> Index </th>
                         <th> Name </th>
+                        <th> Action </th>
                     </tr>
                    </thead>
                    <tbody>
-                    <tr *ngFor="let user of userDetails;let i=index;">
-                        <td routerLinkActive="active-link"> <a [routerLink]="user.uid" class="style-link">{{i+1}}</a> </td>
-                        <td routerLinkActive="active-link"> <a [routerLink]="user.uid" class="style-link">{{user.name}}</a></td>    
+                    <tr *ngFor="let user of userDetails;let i=index;" 
+                    routerLinkActive="active-link">
+                        <td style="width:10%"> {{i+1}} </td>
+                        <td style="width:40%"> {{user.name}} </td> 
+                        <td style="width:50%">
+                                <div class="btn-div">
+                                    <button class="btn btn-success bttn" type="button" [routerLink]="user.uid">View</button> &nbsp;
+                                    <button class="btn btn-primary bttn" type="button" [routerLink]="['/user',user.uid]">Edit</button> &nbsp;
+                                    <button class="btn btn-danger bttn" type="button" (click)="onDeleteUser(user.id)">Delete</button>
+                                </div>
+                        </td> 
                     </tr>   
                    </tbody>
                 </table> 

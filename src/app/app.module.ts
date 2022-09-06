@@ -7,10 +7,11 @@ import { ShowUserDetailsComponent } from './show-user-details-list/show-user-det
 import { UserDetailsFormComponent } from './user-details-form/user-details-form.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule,ReactiveFormsModule} from '@angular/forms';
-import { UserService } from './user.service';
+import { UserService } from './shared/user.service';
 import { ShowUserDetailsListComponent } from './show-user-details-list/show-user-details-list.component';
 import { UserSelectComponent } from './show-user-details-list/user-select/user-select.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,9 +27,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [UserService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

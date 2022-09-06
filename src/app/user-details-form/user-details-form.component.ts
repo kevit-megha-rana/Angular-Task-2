@@ -3,7 +3,8 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UUID } from 'angular2-uuid';
 import { EnumRegex } from 'src/enum-regex';
-import { IUser, UserService } from '../user.service';
+import { ApiService } from '../shared/api.service';
+import { IUser, UserService } from '../shared/user.service';
 
 @Component({
   selector: 'app-user-details-form',
@@ -14,16 +15,6 @@ import { IUser, UserService } from '../user.service';
 export class UserDetailsFormComponent implements OnInit {
 
   hobbies: any = [
-    {
-      name: "Cricket",
-      value: "cricket",
-      selected: false
-    },
-    {
-      name: "Mobile-games",
-      value: "mobile-games",
-      selected: false
-    },
     {
       name: "Movie",
       value: "movie",
@@ -38,6 +29,16 @@ export class UserDetailsFormComponent implements OnInit {
       name: "Sleeping",
       value: "sleeping",
       selected: false
+    },
+    {
+      name: "Cricket",
+      value: "cricket",
+      selected: false
+    },
+    {
+      name: "Mobile-games",
+      value: "mobile-games",
+      selected: false
     }
   ];
 
@@ -45,14 +46,14 @@ export class UserDetailsFormComponent implements OnInit {
   userDetailsForm : FormGroup;
   userDetails : IUser[] = [];
   selectedHobbyValues = [];
-  selectedHobby = [];
   uid: string; // to generate unique userId when new user is created
   editID: string;
   
 
   constructor(private router:Router,
               private route:ActivatedRoute,
-              private userService:UserService) { }
+              private userService:UserService,
+              private apiservice:ApiService) { }
 
   ngOnInit(): void {
 
@@ -73,7 +74,7 @@ export class UserDetailsFormComponent implements OnInit {
     }  
 
     this.uid = UUID.UUID();
-    
+
     this.userDetailsForm = new FormGroup({
       'name': new FormControl(user?.name || "",[Validators.required,Validators.pattern(EnumRegex.Name)]),
       'dateOfBirth': new FormControl(user?.dateOfBirth || "",Validators.required),
@@ -95,9 +96,12 @@ export class UserDetailsFormComponent implements OnInit {
   addHobbyControls(){
       if(this.editID){
         const user = this.userService.getUserById(this.editID); 
-        const arr = user.hobbies.map(hobbie =>{
-          return new FormControl(hobbie);
-        });
+        const arr = this.hobbies.map((hobbie) => {
+          if(user.hobbyValues.includes(hobbie.value)){
+            return new FormControl(true);
+          }
+            return new FormControl(false);
+        })
         return new FormArray(arr);
       }
       else{
@@ -113,14 +117,12 @@ export class UserDetailsFormComponent implements OnInit {
   }
 
   getSelectedHobbyValue(){
-    this.selectedHobby = [];
     this.selectedHobbyValues = [];
     this.hobbiesArray().forEach((control,i) =>{
       if(control.value){
         this.hobbies[i].selected = !this.hobbies[i].selected;
         this.selectedHobbyValues.push(this.hobbies[i].value);   
       }
-      this.selectedHobby.push(this.hobbies[i]);
     });
   }
 
@@ -132,6 +134,13 @@ export class UserDetailsFormComponent implements OnInit {
     }
     else{
     this.userDetails.push({...this.userDetailsForm.value,hobbyValues});
+    this.apiservice.postUser({...this.userDetailsForm.value,hobbyValues})
+    .subscribe(res=>{
+      return res;
+    },
+    err =>{
+      return err;
+    })
     }
     this.router.navigate(['/user-details']);
   }

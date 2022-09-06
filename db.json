@@ -1,0 +1,56 @@
+{
+  "posts": [
+    {
+      "name": "Megha Rana",
+      "dateOfBirth": "2001-05-02",
+      "email": "Megha.Rana@kevit.io",
+      "phoneNumber": "7574993099",
+      "education": {
+        "instituteName": "V.V.P Engineering College",
+        "degree": "B.Tech",
+        "percentage": "89"
+      },
+      "hobbies": [
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      "gender": "female",
+      "address": "",
+      "summary": "",
+      "uid": "44856541-3916-4a29-96ca-5b2d262f6a18",
+      "hobbyValues": [
+        "sleeping"
+      ],
+      "id": 1
+    },
+    {
+      "name": "Sejal Gupta",
+      "dateOfBirth": "2001-01-05",
+      "email": "sejal@gmail.com",
+      "phoneNumber": "7512345678",
+      "education": {
+        "instituteName": "Darshan University",
+        "degree": "B.Tech",
+        "percentage": "86"
+      },
+      "hobbies": [
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "gender": "female",
+      "address": "",
+      "summary": "",
+      "uid": "cdadef8b-0375-e85d-6158-fddd64861957",
+      "hobbyValues": [
+        "travelling"
+      ],
+      "id": 3
+    }
+  ]
+}
