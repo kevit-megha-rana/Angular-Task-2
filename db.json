@@ -1,30 +1,31 @@
 {
   "posts": [
     {
-      "name": "Megha Rana",
+      "name": "Hets Rana",
       "dateOfBirth": "2001-05-02",
-      "email": "Megha.Rana@kevit.io",
+      "email": "Dhruva@gmail.com",
       "phoneNumber": "7574993099",
       "education": {
-        "instituteName": "V.V.P Engineering College",
-        "degree": "B.Tech",
+        "instituteName": "ncs",
+        "degree": "hsc",
         "percentage": "89"
       },
       "hobbies": [
         false,
+        false,
         true,
-        false,
-        false,
+        true,
         false
       ],
       "gender": "female",
-      "address": null,
-      "summary": null,
-      "uid": "6e13a3d3-a565-dd19-f5d0-f2b711cbd60b",
+      "address": "",
+      "summary": "",
+      "uid": "6b6af03f-6d35-1b22-87e6-1c7166b03317",
       "hobbyValues": [
-        "travelling"
+        "sleeping",
+        "cricket"
       ],
-      "id": 1
+      "id": 2
     }
   ]
 }

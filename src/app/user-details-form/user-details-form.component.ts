@@ -89,9 +89,28 @@ export class UserDetailsFormComponent implements OnInit {
           'gender': new FormControl("" || this.user?.gender,Validators.required),
           'address': new FormControl("" || this.user?.address),
           'summary': new FormControl("" || this.user?.summary),
-          'uid': new FormControl(this.uid)
+          'uid': new FormControl( "" || this.user?.uid)
         });    
       })
+    }
+
+    if(!this.editID){
+        this.userDetailsForm = new FormGroup({
+          'name': new FormControl("",[Validators.required,Validators.pattern(EnumRegex.Name)]),
+          'dateOfBirth': new FormControl("",Validators.required),
+          'email': new FormControl("",[Validators.required,Validators.email]),
+          'phoneNumber': new FormControl("",[Validators.required,Validators.pattern(EnumRegex.PhoneNumber)]),
+          'education': new FormGroup({
+            'instituteName': new FormControl("",[Validators.required,Validators.pattern(EnumRegex.InstituteName)]),
+            'degree': new FormControl("",[Validators.required,Validators.pattern(EnumRegex.Degree)]),
+            'percentage': new FormControl("",[Validators.required,Validators.pattern(EnumRegex.Percentage)]),
+          }),
+          'hobbies': this.addHobbyControls(),
+          'gender': new FormControl("",Validators.required),
+          'address': new FormControl(""),
+          'summary': new FormControl(""),
+          'uid': new FormControl(this.uid)
+        });    
     }
   }
 
