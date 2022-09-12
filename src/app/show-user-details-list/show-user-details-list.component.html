@@ -20,8 +20,8 @@
                         <td style="width:40%"> {{user.name}} </td> 
                         <td style="width:50%">
                                 <div class="btn-div">
-                                    <button class="btn btn-success bttn" type="button" [routerLink]="user.uid">View</button> &nbsp;
-                                    <button class="btn btn-primary bttn" type="button" [routerLink]="['/user',user.uid]">Edit</button> &nbsp;
+                                    <button class="btn btn-success bttn" type="button" [routerLink]="user.id">View</button> &nbsp;
+                                    <button class="btn btn-primary bttn" type="button" [routerLink]="['/user',user.id]">Edit</button> &nbsp;
                                     <button class="btn btn-danger bttn" type="button" (click)="onDeleteUser(user.id)">Delete</button>
                                 </div>
                         </td> 

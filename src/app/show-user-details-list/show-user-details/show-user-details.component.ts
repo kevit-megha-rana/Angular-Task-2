@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { ActivatedRoute, Params} from '@angular/router';
-import { IUser, UserService } from '../../shared/user.service';
+import { ApiService } from 'src/app/shared/api.service';
+import { IUser } from '../../shared/user.model';
 
 @Component({
   selector: 'app-show-user-details',
@@ -10,19 +11,25 @@ import { IUser, UserService } from '../../shared/user.service';
 export class ShowUserDetailsComponent {
 
   user: IUser;
-  editID: string;
+  editID: number;
 
-  constructor(private userService:UserService,
-              private route:ActivatedRoute) { }
+  constructor(private route:ActivatedRoute,
+              private apiService:ApiService) { }
 
   ngOnInit(): void {
     this.route.params
       .subscribe(
         (params:Params) =>{
            this.editID = params['id'];
-           this.user = this.userService.getUserById(this.editID);
+           this.apiService.getUserByID(this.editID)
+           .subscribe(res=>{
+            this.user = res;
+           },
+           err=>{
+            return err;
+           });
         }
-      );
+    );
   }
 
 }

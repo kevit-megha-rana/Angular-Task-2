@@ -1,3 +1,30 @@
 {
-  "posts": []
+  "posts": [
+    {
+      "name": "Megha Rana",
+      "dateOfBirth": "2001-05-02",
+      "email": "Megha.Rana@kevit.io",
+      "phoneNumber": "7574993099",
+      "education": {
+        "instituteName": "V.V.P Engineering College",
+        "degree": "B.Tech",
+        "percentage": "89"
+      },
+      "hobbies": [
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "gender": "female",
+      "address": null,
+      "summary": null,
+      "uid": "6e13a3d3-a565-dd19-f5d0-f2b711cbd60b",
+      "hobbyValues": [
+        "travelling"
+      ],
+      "id": 1
+    }
+  ]
 }

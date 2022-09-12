@@ -4,7 +4,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UUID } from 'angular2-uuid';
 import { EnumRegex } from 'src/enum-regex';
 import { ApiService } from '../shared/api.service';
-import { IUser, UserService } from '../shared/user.service';
+import { IUser } from '../shared/user.model';
+
+
 
 @Component({
   selector: 'app-user-details-form',
@@ -43,17 +45,16 @@ export class UserDetailsFormComponent implements OnInit {
   ];
 
   genders: string[] = ['male','female'];
-  userDetailsForm : FormGroup;
-  userDetails : IUser[] = [];
+  userDetailsForm: FormGroup ;
   selectedHobbyValues = [];
   uid: string; // to generate unique userId when new user is created
-  editID: string;
+  editID: number;
+  user: IUser;
   
 
   constructor(private router:Router,
               private route:ActivatedRoute,
-              private userService:UserService,
-              private apiservice:ApiService) { }
+              private apiService:ApiService) { }
 
   ngOnInit(): void {
 
@@ -62,54 +63,54 @@ export class UserDetailsFormComponent implements OnInit {
           this.editID = params['id'];
           this.initForm();
       }
-    )
-    this.userDetails = this.userService.userDetails;    
+    )  
   }
 
   private initForm(){
-    let user:IUser;
-     
-    if(this.editID){
-      user = this.userService.getUserById(this.editID);
-    }  
 
+    
     this.uid = UUID.UUID();
 
-    this.userDetailsForm = new FormGroup({
-      'name': new FormControl(user?.name || "",[Validators.required,Validators.pattern(EnumRegex.Name)]),
-      'dateOfBirth': new FormControl(user?.dateOfBirth || "",Validators.required),
-      'email': new FormControl(user?.email || "",[Validators.required,Validators.email]),
-      'phoneNumber': new FormControl(user?.phoneNumber || "",[Validators.required,Validators.pattern(EnumRegex.PhoneNumber)]),
-      'education': new FormGroup({
-        'instituteName': new FormControl(user?.education.instituteName || "",[Validators.required,Validators.pattern(EnumRegex.InstituteName)]),
-        'degree': new FormControl(user?.education.degree || "",[Validators.required,Validators.pattern(EnumRegex.Degree)]),
-        'percentage': new FormControl(user?.education.percentage || "",[Validators.required,Validators.pattern(EnumRegex.Percentage)]),
-      }),
-      'hobbies': this.addHobbyControls(),
-      'gender': new FormControl(user?.gender || "",Validators.required),
-      'address': new FormControl(user?.address || ""),
-      'summary': new FormControl(user?.summary || ""),
-      'uid': new FormControl(user?.uid || this.uid)
-    });
+    if(this.editID){
+      this.apiService.getUserByID(this.editID)
+      .subscribe(res=>{
+        this.user = res;
+        this.userDetailsForm = new FormGroup({
+          'name': new FormControl("" || this.user?.name,[Validators.required,Validators.pattern(EnumRegex.Name)]),
+          'dateOfBirth': new FormControl("" || this.user?.dateOfBirth,Validators.required),
+          'email': new FormControl("" || this.user?.email,[Validators.required,Validators.email]),
+          'phoneNumber': new FormControl("" || this.user?.phoneNumber,[Validators.required,Validators.pattern(EnumRegex.PhoneNumber)]),
+          'education': new FormGroup({
+            'instituteName': new FormControl("" || this.user?.education.instituteName,[Validators.required,Validators.pattern(EnumRegex.InstituteName)]),
+            'degree': new FormControl("" || this.user?.education.degree,[Validators.required,Validators.pattern(EnumRegex.Degree)]),
+            'percentage': new FormControl("" || this.user?.education.percentage,[Validators.required,Validators.pattern(EnumRegex.Percentage)]),
+          }),
+          'hobbies': this.addHobbyControls(),
+          'gender': new FormControl("" || this.user?.gender,Validators.required),
+          'address': new FormControl("" || this.user?.address),
+          'summary': new FormControl("" || this.user?.summary),
+          'uid': new FormControl(this.uid)
+        });    
+      })
+    }
   }
 
   addHobbyControls(){
-      if(this.editID){
-        const user = this.userService.getUserById(this.editID); 
-        const arr = this.hobbies.map((hobbie) => {
-          if(user.hobbyValues.includes(hobbie.value)){
-            return new FormControl(true);
-          }
-            return new FormControl(false);
-        })
-        return new FormArray(arr);
-      }
-      else{
-        const arr = this.hobbies.map((hobby) =>{
-          return new FormControl(hobby.selected);
-        });
-        return new FormArray(arr);
-      } 
+    if(this.editID){
+      const arr = this.hobbies.map((hobbie) => {
+        if(this.user.hobbyValues.includes(hobbie.value)){
+          return new FormControl(true);
+        }
+          return new FormControl(false);
+      })
+      return new FormArray(arr);
+    }
+    else{
+      const arr = this.hobbies.map((hobby) =>{
+        return new FormControl(hobby.selected);
+      });
+      return new FormArray(arr);
+    } 
   }
 
   hobbiesArray() {
@@ -130,19 +131,21 @@ export class UserDetailsFormComponent implements OnInit {
     this.getSelectedHobbyValue();
     const hobbyValues = this.selectedHobbyValues;
     if(this.editID){
-      this.userService.updateUser(this.editID,{...this.userDetailsForm.value,hobbyValues});
-    }
-    else{
-    this.userDetails.push({...this.userDetailsForm.value,hobbyValues});
-    this.apiservice.postUser({...this.userDetailsForm.value,hobbyValues})
+    this.apiService.putUser({...this.userDetailsForm.value,hobbyValues},this.editID)
     .subscribe(res=>{
-      return res;
+      this.router.navigate(['/user-details']);
     },
     err =>{
-      return err;
     })
     }
-    this.router.navigate(['/user-details']);
+    else{
+    this.apiService.postUser({...this.userDetailsForm.value,hobbyValues})
+    .subscribe(res=>{
+      this.router.navigate(['/user-details']);
+    },
+    err =>{
+    })
+    }
   }
 
   onReset(){

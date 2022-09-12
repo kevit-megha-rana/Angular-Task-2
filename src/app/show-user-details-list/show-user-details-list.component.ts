@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../shared/api.service';
-import { IUser, UserService } from '../shared/user.service';
+import { IUser} from '../shared/user.model';
 
 @Component({
   selector: 'app-show-user-details-list',
@@ -13,16 +13,20 @@ export class ShowUserDetailsListComponent implements OnInit {
   userDetails : IUser[] =[];
 
   constructor(private router:Router,
-              private userService:UserService,
               private apiService:ApiService) { }
 
   ngOnInit(): void {
-    this.apiService.getUser().subscribe(res=>{
+    this.getUsers();
+  }
+
+  getUsers(){
+    this.apiService.getUsers()
+    .subscribe(res=>{
       this.userDetails = res;
     },
     err =>{
-      return err;
-    })
+      console.error(err);
+    })  
   }
 
   onAddUser(){
@@ -30,14 +34,13 @@ export class ShowUserDetailsListComponent implements OnInit {
   }
 
   onDeleteUser(editId:number){
-    this.userService.deleteUsers(editId);
-    this.router.navigate(['/user-details']);
-    this.apiService.getUser().subscribe(res=>{
-      this.userDetails = res;
+    this.apiService.deleteUser(editId)
+    .subscribe(res=>{
+      this.getUsers();
+      this.router.navigate(['/user-details']);  
     },
     err =>{
-      return err;
+      console.error(err);
     })
   }
-
 }
